@@ -6,5 +6,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: true,
+    port: 5173,
   },
+  base: "./",
+  build: {
+    outDir: "dist",
+    assetsDir: "assets",
+  },
+  assetsInclude: ["**/*.svg"],
 });

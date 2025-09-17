@@ -1,42 +1,860 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* App Layout */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: fixed;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 80px; /* Space for navigation */
+  animation: fadeIn 0.5s ease-in;
 }
 
-@keyframes logo-spin {
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* Navigation */
+.app-navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.nav-btn.active {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+}
+
+.nav-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.nav-label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Tap to Earn Page */
+.tap-to-earn {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.game-header {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 20px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.stat-item {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.stat-label {
+  display: block;
+  font-size: 11px;
+  opacity: 0.9;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.stat-value {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.coin-bounce {
+  animation: coinBounce 0.5s ease;
+}
+
+@keyframes coinBounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
   }
 }
 
-.card {
-  padding: 2em;
+.game-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-.read-the-docs {
-  color: #888;
+/* Dog Animation */
+.dog-animation-container {
+  margin: 30px 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+}
+
+/* Canvas Dog Animation */
+.canvas-dog-wrapper {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+}
+
+.canvas-dog-wrapper:hover {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.canvas-dog-wrapper:active {
+  transform: scale(0.95);
+}
+
+.dog-wrapper {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.dog-wrapper:hover {
+  transform: scale(1.05);
+}
+
+.dog-wrapper:active {
+  transform: scale(0.95);
+}
+
+.customized-dog-display {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.dog-body-display {
+  font-size: 120px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.dog-svg-container {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dog-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  transition: all 0.2s ease;
+}
+
+.dog-hat-overlay {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 60px;
+  z-index: 2;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.tap-effect {
+  animation: tapPulse 0.3s ease;
+}
+
+@keyframes tapPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bouncing {
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  75% {
+    transform: translateY(-15px);
+  }
+}
+
+.tap-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.ripple-circle {
+  width: 100px;
+  height: 100px;
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: rippleEffect 0.6s ease-out;
+}
+
+@keyframes rippleEffect {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.tap-instruction {
+  text-align: center;
+  margin: 25px auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  align-self: center;
+}
+
+.tap-instruction p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.earn-info {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 18px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Mission Panel */
+.mission-panel {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 25px;
+  margin-top: 30px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.mission-panel h3 {
+  margin: 0 0 20px 0;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.missions-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.mission-card {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mission-card.completed {
+  opacity: 0.8;
+  background: rgba(76, 175, 80, 0.2);
+  border: 1px solid rgba(76, 175, 80, 0.4);
+  animation: missionComplete 0.6s ease;
+}
+
+@keyframes missionComplete {
+  0% {
+    transform: scale(1);
+    background: rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    transform: scale(1.02);
+    background: rgba(76, 175, 80, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    background: rgba(76, 175, 80, 0.2);
+  }
+}
+
+.mission-image {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 15px;
+  margin: 15px 15px 0 15px;
+}
+
+.mission-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-radius: 15px;
+}
+
+.mission-card:hover .mission-image img {
+  transform: scale(1.05);
+}
+
+.mission-info {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.mission-info h4 {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.mission-info p {
+  margin: 0 0 20px 0;
+  font-size: 15px;
+  opacity: 0.9;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.mission-progress {
+  margin: 0 0 20px 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #66bb6a);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+}
+
+.progress-text {
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+.mission-reward {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 15px;
+}
+
+.reward-amount {
+  color: #ffd700;
+  font-weight: 800;
+  font-size: 18px;
+  text-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+}
+
+.complete-btn {
+  background: linear-gradient(135deg, #4caf50, #66bb6a);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.complete-btn:hover {
+  background: linear-gradient(135deg, #45a049, #5cb85c);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.completed-badge {
+  color: #59eb5e;
+  font-weight: 600;
+  font-size: 12px;
+  background: rgba(76, 175, 80, 0.25);
+  padding: 6px 12px;
+  border-radius: 15px;
+  border: 1px solid rgba(105, 238, 110, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  animation: completeBadge 0.5s ease;
+}
+
+.incomplete-badge {
+  color: #ff9800;
+  font-weight: 600;
+  font-size: 12px;
+  background: rgba(255, 152, 0, 0.25);
+  padding: 6px 12px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 152, 0, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+@keyframes completeBadge {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.retry-btn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* Dog Customization */
+.dog-customization {
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dog-customization h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.customization-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+
+.dog-drop-zone {
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px dashed rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  padding: 35px;
+  text-align: center;
+  backdrop-filter: blur(15px);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.dog-drop-zone:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.dog-drop-zone h3 {
+  margin: 0 0 25px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.dog-preview {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dog-display {
+  position: relative;
+  font-size: 50px;
+}
+
+.dog-svg-preview {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dog-preview-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.dog-body {
+  display: block;
+}
+
+.dog-hat {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 25px;
+}
+
+.drop-hint {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.customization-options {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.option-category h4 {
+  margin: 0 0 15px 0;
+  text-align: center;
+  color: #ffd700;
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.option-item {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-item:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.option-item.selected {
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.25);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.option-item:active {
+  transform: translateY(-1px);
+}
+
+.option-preview {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.option-name {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.customization-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 35px;
+  width: 100%;
+}
+
+.save-btn,
+.reset-btn {
+  flex: 1;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.save-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.save-btn:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+.reset-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.reset-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .customization-workspace {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
+  }
+
+  .dog-drop-zone {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .customization-options {
+    flex: 2;
+  }
+
+  .option-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .tap-to-earn {
+    padding: 30px 40px;
+  }
+
+  .dog-customization {
+    padding: 30px 40px;
+  }
+
+  .stats-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 25px;
+  }
+
+  .mission-panel {
+    padding: 30px;
+  }
+
+  .missions-list {
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 30px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tap-to-earn {
+    padding: 40px 60px;
+  }
+
+  .dog-customization {
+    padding: 40px 60px;
+  }
+
+  .stats-container {
+    gap: 25px;
+    padding: 30px;
+  }
+
+  .missions-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .option-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+  }
 }
