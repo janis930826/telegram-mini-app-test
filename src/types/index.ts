@@ -13,8 +13,8 @@ export interface Mission {
 
 export interface DogCustomization {
   body: "default" | "fluffy" | "slim";
-  hat: "none" | "cap" | "crown" | "bow";
-  color: "brown" | "golden" | "black" | "white";
+  hat: "none" | "cap" | "crown" | "bow" | "headband" | "santa";
+  color: "brown" | "golden" | "black" | "white" | "gray" | "cream";
 }
 
 export interface GameState {

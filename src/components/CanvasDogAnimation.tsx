@@ -56,24 +56,28 @@ const CanvasDogAnimation: React.FC<CanvasDogAnimationProps> = ({
         frame = (frame % 3) + 1;
         setCurrentFrame(frame);
 
-        // Animate position based on frame
+        // Animate position based on frame with improved 0.5 second transitions
         if (dogGroupRef.current) {
           const group = dogGroupRef.current;
           let targetY = 0;
           let targetScaleY = 1;
+          let targetScaleX = 1;
 
           switch (frame) {
             case 1:
               targetY = 0;
               targetScaleY = 1;
+              targetScaleX = 1;
               break;
             case 2:
-              targetY = -5;
-              targetScaleY = 1.05;
+              targetY = -8;
+              targetScaleY = 1.08;
+              targetScaleX = 1.02;
               break;
             case 3:
-              targetY = -10;
-              targetScaleY = 1.1;
+              targetY = -15;
+              targetScaleY = 1.15;
+              targetScaleX = 1.05;
               break;
           }
 
@@ -82,18 +86,19 @@ const CanvasDogAnimation: React.FC<CanvasDogAnimationProps> = ({
             currentTweenRef.current.destroy();
           }
 
-          // Create new tween
+          // Create new tween with 0.5 second duration
           currentTweenRef.current = new Konva.Tween({
             node: group,
-            duration: ANIMATION_CONFIG.FRAME_DURATION / 1000,
+            duration: ANIMATION_CONFIG.FRAME_DURATION / 1000, // 0.5 seconds
             y: targetY,
             scaleY: targetScaleY,
+            scaleX: targetScaleX,
             easing: Konva.Easings.EaseInOut,
           });
 
           currentTweenRef.current.play();
         }
-      }, ANIMATION_CONFIG.FRAME_DURATION);
+      }, ANIMATION_CONFIG.FRAME_DURATION); // 500ms interval
     } else {
       // COMPLETELY STOP animation
       setCurrentFrame(1);
@@ -529,7 +534,7 @@ const CanvasDogAnimation: React.FC<CanvasDogAnimationProps> = ({
             className="dog-hat-overlay"
             style={{
               position: "absolute",
-              top: "-28px",
+              top: "-20px",
               left: "50%",
               transform: "translateX(-50%)",
               fontSize: "40px",

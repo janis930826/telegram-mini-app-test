@@ -70,6 +70,43 @@ export class TelegramService {
     };
   }
 
+  public getInitData(): string {
+    return WebApp.initData || "";
+  }
+
+  public validateInitData(): boolean {
+    try {
+      // Check if we have initData
+      const initData = this.getInitData();
+      if (!initData) {
+        console.warn("No initData available - running in development mode");
+        return false;
+      }
+
+      // Check if we have user data
+      const userData = this.getUserData();
+      if (!userData.id) {
+        console.warn("No user ID available in initData");
+        return false;
+      }
+
+      // Basic validation - in production, this should be validated server-side
+      // with the bot token using Telegram's validation algorithm
+      return true;
+    } catch (error) {
+      console.error("InitData validation error:", error);
+      return false;
+    }
+  }
+
+  public isValidUser(): boolean {
+    // For development, always return true if no initData
+    if (!WebApp.initData) {
+      return true; // Development mode
+    }
+    return this.validateInitData();
+  }
+
   public setHeaderColor(color: string): void {
     try {
       if (

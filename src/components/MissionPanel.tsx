@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
+import { motion } from "framer-motion";
 import type { Mission, GameState } from "../types";
 import { apiService } from "../services/api";
 import { telegramService } from "../utils/telegram";
+
+// Lazy load LazyImage for optimization
+const LazyImage = lazy(() => import("./LazyImage"));
 
 interface MissionPanelProps {
   gameState: GameState;
@@ -134,21 +138,36 @@ const MissionPanel: React.FC<MissionPanelProps> = ({
   }
 
   return (
-    <div className="mission-panel">
-      <h3>Daily Missions</h3>
+    <motion.div
+      className="mission-panel"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}>
+      <motion.h3
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}>
+        🎯 Daily Missions
+      </motion.h3>
       <div className="missions-list">
-        {missions.map((mission) => (
-          <div
+        {missions.map((mission, index) => (
+          <motion.div
             key={mission.id}
-            className={`mission-card ${mission.completed ? "completed" : ""}`}>
+            className={`mission-card ${mission.completed ? "completed" : ""}`}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
+            whileHover={{ scale: 1.02, y: -2 }}>
             {mission.imageUrl && (
               <div className="mission-image">
-                <img
-                  src={mission.imageUrl}
-                  alt={mission.title}
-                  width="300"
-                  height="100"
-                />
+                <Suspense
+                  fallback={<div className="image-placeholder">🖼️</div>}>
+                  <LazyImage
+                    src={mission.imageUrl}
+                    alt={mission.title}
+                    className="mission-img"
+                  />
+                </Suspense>
               </div>
             )}
             <div className="mission-info">
@@ -180,21 +199,23 @@ const MissionPanel: React.FC<MissionPanelProps> = ({
                   <span className="incomplete-badge">Not completed</span>
                 )}
                 {mission.completed && !mission.rewarded && (
-                  <button
+                  <motion.button
                     className="complete-btn"
-                    onClick={() => completeMission(mission.id)}>
-                    Claim Reward
-                  </button>
+                    onClick={() => completeMission(mission.id)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}>
+                    🎁 Claim Reward
+                  </motion.button>
                 )}
                 {mission.completed && mission.rewarded && (
                   <span className="completed-badge">✓ Claimed</span>
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

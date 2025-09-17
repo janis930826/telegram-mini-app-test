@@ -5,6 +5,7 @@ export const API_CONFIG = {
   BASE_URL: import.meta.env.VITE_API_BASE_URL || "https://api.example.com",
   ENDPOINTS: {
     GET_MISSIONS: "/getMissions",
+    GET_TAPS: "/getTaps",
   },
   TIMEOUT: 2000,
 } as const;
@@ -12,12 +13,14 @@ export const API_CONFIG = {
 // Game Configuration
 export const GAME_CONFIG = {
   COINS_PER_TAP: 1,
+  DAILY_TAP_LIMIT: 200, // 200 $DOGG daily limit as per requirements
   MILESTONE_TAPS: 50, // Haptic feedback every 50 taps
+  PROGRESS_BAR_INTERVAL: 10, // Progress bar updates every 10 taps
 } as const;
 
 // Animation Configuration
 export const ANIMATION_CONFIG = {
-  FRAME_DURATION: 200, // Duration for each animation frame in ms
+  FRAME_DURATION: 500, // 0.5 second transition as per requirements
   TAP_EFFECT_DURATION: 200, // Duration for tap effect animation in ms
 } as const;
 
@@ -40,6 +43,8 @@ export const DOG_OPTIONS = {
     golden: "#FFD700",
     black: "#2C2C2C",
     white: "#F5F5F5",
+    gray: "#808080",
+    cream: "#F5F5DC",
   },
   BODY_TYPES: {
     default: {
@@ -60,6 +65,8 @@ export const DOG_OPTIONS = {
     cap: "🧢",
     crown: "👑",
     bow: "🎀",
+    headband: "🎯",
+    santa: "🎅",
   },
 } as const;
 
@@ -208,10 +215,20 @@ export const CUSTOMIZATION_OPTIONS: CustomizationOption[] = [
   { id: "cap", name: "Cap", preview: "🧢", category: "hat" },
   { id: "crown", name: "Crown", preview: "👑", category: "hat" },
   { id: "bow", name: "Bow", preview: "🎀", category: "hat" },
+  { id: "headband", name: "Headband", preview: "🎯", category: "hat" },
+  { id: "santa", name: "Santa Hat", preview: "🎅", category: "hat" },
 
   // Color options
   { id: "brown", name: "Brown", preview: "🤎", category: "color" },
   { id: "golden", name: "Golden", preview: "🟡", category: "color" },
   { id: "black", name: "Black", preview: "⚫", category: "color" },
   { id: "white", name: "White", preview: "⚪", category: "color" },
+  { id: "gray", name: "Gray", preview: "🩶", category: "color" },
+  { id: "cream", name: "Cream", preview: "🟤", category: "color" },
 ] as const;
+
+// Calculate actual number of possible combinations
+export const TOTAL_COMBINATIONS =
+  CUSTOMIZATION_OPTIONS.filter((opt) => opt.category === "body").length *
+  CUSTOMIZATION_OPTIONS.filter((opt) => opt.category === "hat").length *
+  CUSTOMIZATION_OPTIONS.filter((opt) => opt.category === "color").length;
