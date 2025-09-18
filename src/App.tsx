@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import TapToEarn from "./components/TapToEarn";
 import DogCustomization from "./components/DogCustomization";
+import Home from "./components/Home";
 import Navigation from "./components/Navigation";
 import ErrorBoundary from "./components/ErrorBoundary";
 import type {
@@ -16,7 +17,9 @@ function App() {
   // Performance monitoring for the main App component
   usePerformanceMonitor("App");
 
-  const [currentPage, setCurrentPage] = useState<"tap" | "customize">("tap");
+  const [currentPage, setCurrentPage] = useState<"home" | "tap" | "customize">(
+    "home"
+  );
   const [gameState, setGameState] = useState<GameState>({
     coins: 0,
     tapsCount: 0,
@@ -111,6 +114,14 @@ function App() {
     <ErrorBoundary>
       <div className="app">
         <div className="app-container">
+          {currentPage === "home" && (
+            <ErrorBoundary
+              fallback={
+                <div className="error-fallback">Failed to load Home page</div>
+              }>
+              <Home gameState={gameState} onPageChange={setCurrentPage} />
+            </ErrorBoundary>
+          )}
           {currentPage === "tap" && (
             <ErrorBoundary
               fallback={

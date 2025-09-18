@@ -1,8 +1,8 @@
 import React from "react";
 
 interface NavigationProps {
-  currentPage: "tap" | "customize";
-  onPageChange: (page: "tap" | "customize") => void;
+  currentPage: "home" | "tap" | "customize";
+  onPageChange: (page: "home" | "tap" | "customize") => void;
 }
 
 const Navigation: React.FC<NavigationProps> = ({
@@ -11,6 +11,13 @@ const Navigation: React.FC<NavigationProps> = ({
 }) => {
   return (
     <nav className="app-navigation">
+      <button
+        className={`nav-btn ${currentPage === "home" ? "active" : ""}`}
+        onClick={() => onPageChange("home")}>
+        <span className="nav-icon">🏠</span>
+        <span className="nav-label">Home</span>
+      </button>
+
       <button
         className={`nav-btn ${currentPage === "tap" ? "active" : ""}`}
         onClick={() => onPageChange("tap")}>
